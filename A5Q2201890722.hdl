@@ -1,0 +1,18 @@
+CHIP A5Q220189072 {
+    IN O, X, C;       // Inputs: O, X, C
+    OUT W;            // Output: W
+
+    PARTS:
+    // NOT gate for X
+    Not(in=X, out=notX);         // notX = ¬X
+
+    // OR gates
+    Or(a=O, b=notX, out=OR1);    // OR1 = O ∨ ¬X
+    Or(a=O, b=notX, out=OR2);    // OR2 = O ∨ ¬X
+
+    // AND gate 1: combines OR1 and OR2
+    And(a=OR1, b=OR2, out=AND1); // AND1 = (O ∨ ¬X) ∧ (O ∨ ¬X)
+
+    // AND gate 2: combines AND1 and C
+    And(a=AND1, b=C, out=W);     // W = AND1 ∧ C
+}
